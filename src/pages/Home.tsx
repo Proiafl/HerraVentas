@@ -5,8 +5,24 @@ import ProductCard from '../components/ProductCard';
 import { productos } from '../data/productos';
 
 const banners = [
-  { id: 1, image: 'https://picsum.photos/seed/banner1/1920/400?blur=1' },
-  { id: 2, image: 'https://picsum.photos/seed/banner2/1920/400?blur=1' },
+  { 
+    id: 1, 
+    image: '/banner-1.png',
+    title: '',
+    subtitle: ''
+  },
+  { 
+    id: 2, 
+    image: '/banner-2.png',
+    title: '',
+    subtitle: ''
+  },
+  { 
+    id: 3, 
+    image: '/banner-3.jpg',
+    title: '',
+    subtitle: ''
+  },
 ];
 
 export default function Home() {
@@ -15,22 +31,61 @@ export default function Home() {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentBanner((prev) => (prev + 1) % banners.length);
-    }, 5000);
+    }, 6000);
     return () => clearInterval(timer);
   }, []);
 
   return (
     <div className="pb-16">
       {/* Hero Carousel */}
-      <section className="relative h-[200px] md:h-[350px] bg-[#1B2A4A] overflow-hidden">
-        <img
-          src={banners[currentBanner].image}
-          alt="Banner"
-          className="w-full h-full object-cover opacity-90 transition-opacity duration-500"
-          referrerPolicy="no-referrer"
-        />
+      <section className="relative h-[400px] md:h-[600px] bg-[#1B2A4A] overflow-hidden group">
+        {banners.map((banner, index) => (
+          <div
+            key={banner.id}
+            className={`absolute inset-0 transition-opacity duration-1000 ${
+              index === currentBanner ? 'opacity-100' : 'opacity-0'
+            }`}
+          >
+            <img
+              src={banner.image}
+              alt={banner.title}
+              className="w-full h-full object-contain"
+              referrerPolicy="no-referrer"
+            />
+            {(banner.title || banner.subtitle) && (
+              <div className="absolute inset-0 flex items-center justify-center md:justify-start md:pl-24">
+                <div className="text-center md:text-left px-4 max-w-2xl">
+                  <h2 className="text-4xl md:text-6xl font-black text-white drop-shadow-lg mb-4 tracking-tight">
+                    {banner.title.includes('HERRA') ? (
+                      <>HERRA<span className="text-[#4A9FD4]">VENTAS</span></>
+                    ) : (
+                      banner.title
+                    )}
+                  </h2>
+                  <p className="text-lg md:text-2xl text-gray-200 drop-shadow-md font-medium">
+                    {banner.subtitle}
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
+        ))}
+
         {/* Gradient fade to match background */}
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#ebebeb] to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#ebebeb] to-transparent pointer-events-none" />
+        
+        {/* Carousel Indicators */}
+        <div className="absolute bottom-8 left-0 right-0 flex justify-center gap-3 z-20">
+          {banners.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setCurrentBanner(idx)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                idx === currentBanner ? 'bg-[#4A9FD4] w-8' : 'bg-white/50 hover:bg-white/80'
+              }`}
+            />
+          ))}
+        </div>
       </section>
 
       <div className="container mx-auto px-4 -mt-12 relative z-10">

@@ -20,15 +20,17 @@ export default function Navbar() {
   };
 
   return (
-    <header className="bg-[#1B2A4A] text-white sticky top-0 z-50 shadow-sm">
+    <header className="bg-white text-gray-800 sticky top-0 z-50 shadow-sm border-b border-gray-100">
       {/* Main Header */}
       <div className="container mx-auto px-4 py-3 flex items-center justify-between gap-4 md:gap-8">
         {/* Logo */}
         <Link to="/" className="flex-shrink-0">
-          <div className="font-black text-2xl tracking-tighter flex items-center">
-            <span className="text-white">HERRA</span>
-            <span className="text-[#4A9FD4]">VENTAS</span>
-          </div>
+          <img 
+            src="/logo-herraventas.png" 
+            alt="HERRAVENTAS" 
+            className="h-10 w-auto"
+            referrerPolicy="no-referrer"
+          />
         </Link>
 
         {/* Search Bar (Desktop) */}
@@ -38,38 +40,38 @@ export default function Navbar() {
             placeholder="Buscar herramientas, marcas y más..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full py-2.5 px-4 pr-12 rounded-sm text-gray-900 outline-none shadow-sm focus:ring-2 focus:ring-[#4A9FD4]"
+            className="w-full py-2.5 px-4 pr-12 rounded-sm text-gray-900 outline-none border border-gray-200 focus:border-[#4A9FD4] focus:ring-1 focus:ring-[#4A9FD4] bg-gray-50"
           />
-          <button type="submit" className="absolute right-0 top-0 bottom-0 px-4 bg-white text-gray-500 hover:text-[#1B2A4A] rounded-r-sm flex items-center justify-center border-l border-gray-200">
+          <button type="submit" className="absolute right-0 top-0 bottom-0 px-4 bg-gray-50 text-gray-500 hover:text-[#1B2A4A] rounded-r-sm flex items-center justify-center border-l border-gray-200">
             <Search size={20} />
           </button>
         </form>
 
         {/* Right Icons */}
         <div className="flex items-center gap-5 flex-shrink-0">
-          <Link to="/agente" className="hidden lg:flex items-center gap-2 hover:text-[#4A9FD4] transition-colors">
+          <Link to="/agente" className="hidden lg:flex items-center gap-2 hover:text-[#1B2A4A] transition-colors">
             <Sparkles size={20} className="text-[#4A9FD4]" />
             <span className="text-sm font-medium">Agente IA</span>
           </Link>
           
-          <Link to={user ? "/perfil" : "/login"} className="hidden sm:flex items-center gap-2 hover:text-[#4A9FD4] transition-colors">
-            <User size={24} />
+          <Link to={user ? "/perfil" : "/login"} className="hidden sm:flex items-center gap-2 hover:text-[#1B2A4A] transition-colors">
+            <User size={24} className="text-gray-600" />
             <div className="text-xs flex flex-col">
-              <span className="text-gray-300">Bienvenido</span>
-              <span className="font-bold leading-none">{user ? user.displayName?.split(' ')[0] : 'Ingresa'}</span>
+              <span className="text-gray-500">Bienvenido</span>
+              <span className="font-bold leading-none text-gray-800">{user ? user.displayName?.split(' ')[0] : 'Ingresa'}</span>
             </div>
           </Link>
 
-          <Link to="/favoritos" className="hidden sm:flex flex-col items-center hover:text-[#4A9FD4] transition-colors">
-            <Heart size={22} />
-            <span className="text-[10px] mt-1 font-medium">Favoritos</span>
+          <Link to="/favoritos" className="hidden sm:flex flex-col items-center hover:text-[#1B2A4A] transition-colors">
+            <Heart size={22} className="text-gray-600" />
+            <span className="text-[10px] mt-1 font-medium text-gray-600">Favoritos</span>
           </Link>
 
-          <Link to="/carrito" className="relative flex items-center gap-1 hover:text-[#4A9FD4] transition-colors">
+          <Link to="/carrito" className="relative flex items-center gap-1 hover:text-[#1B2A4A] transition-colors">
             <div className="relative">
-              <ShoppingCart size={28} />
+              <ShoppingCart size={28} className="text-gray-600" />
               {cartCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-[#4A9FD4] text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center border-2 border-[#1B2A4A]">
+                <span className="absolute -top-2 -right-2 bg-[#4A9FD4] text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center border-2 border-white">
                   {cartCount}
                 </span>
               )}
@@ -84,13 +86,13 @@ export default function Navbar() {
 
       {/* Mobile Search */}
       <div className="md:hidden px-4 pb-3">
-        <form onSubmit={handleSearch} className="relative shadow-sm">
+        <form onSubmit={handleSearch} className="relative shadow-sm border border-gray-200 rounded-sm">
           <input
             type="text"
             placeholder="Estoy buscando..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full py-2 px-4 pr-10 rounded-sm text-gray-900 outline-none"
+            className="w-full py-2 px-4 pr-10 rounded-sm text-gray-900 outline-none bg-gray-50"
           />
           <button type="submit" className="absolute right-0 top-0 bottom-0 px-3 text-gray-500">
             <Search size={20} />
