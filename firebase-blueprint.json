@@ -1,0 +1,52 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "role": { "type": "string", "enum": ["admin", "client"] }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "CartItem": {
+      "title": "CartItem",
+      "description": "Item in user's shopping cart",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "cantidad": { "type": "number" },
+        "precio": { "type": "number" }
+      },
+      "required": ["id", "cantidad", "precio"]
+    },
+    "WishlistItem": {
+      "title": "WishlistItem",
+      "description": "Item in user's wishlist",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "addedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "addedAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "User profiles"
+    },
+    "/users/{userId}/cart/{itemId}": {
+      "schema": { "$ref": "#/entities/CartItem" },
+      "description": "User's cart items"
+    },
+    "/users/{userId}/wishlist/{itemId}": {
+      "schema": { "$ref": "#/entities/WishlistItem" },
+      "description": "User's wishlist items"
+    }
+  }
+}
