@@ -8,7 +8,7 @@ export default function Carrito() {
   const navigate = useNavigate();
 
   const subtotal = cart.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
-  const envio = subtotal > 50000 ? 0 : 5000;
+  const envio = subtotal > 0 ? 5000 : 0;
   const total = subtotal + envio;
 
   if (cart.length === 0) {
@@ -108,8 +108,8 @@ export default function Carrito() {
               </div>
               <div className="flex justify-between">
                 <span>Envío</span>
-                <span className={envio === 0 ? "text-green-600 font-medium" : ""}>
-                  {envio === 0 ? "Gratis" : `$ ${envio.toLocaleString('es-AR')}`}
+                <span>
+                  $ {envio.toLocaleString('es-AR')}
                 </span>
               </div>
             </div>

@@ -1,10 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { LogIn, UserPlus } from 'lucide-react';
-import { auth, db } from '../firebase';
-import { signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
-import { doc, setDoc, getDoc } from 'firebase/firestore';
+import { LogIn, UserPlus, LogOut } from 'lucide-react';
+import { supabase } from '../supabase';
 import { useStore } from '../store/useStore';
 
 export default function Auth() {
@@ -14,48 +12,47 @@ export default function Auth() {
   const navigate = useNavigate();
   const { setUser, user } = useStore();
 
+  // Escuchar cambio de sesión de Supabase
+  useEffect(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        if (session?.user) {
+          const u = session.user;
+          setUser({
+            uid: u.id,
+            email: u.email ?? null,
+            displayName: u.user_metadata?.full_name ?? u.email ?? null,
+            photoURL: u.user_metadata?.avatar_url ?? null,
+            role: 'cliente',
+          });
+        } else {
+          setUser(null);
+        }
+      }
+    );
+    return () => subscription.unsubscribe();
+  }, [setUser]);
+
   const handleGoogleSignIn = async () => {
     setIsLoading(true);
     setError('');
     try {
-      const provider = new GoogleAuthProvider();
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-
-      // Check if user exists in Firestore
-      const userRef = doc(db, 'users', user.uid);
-      const userSnap = await getDoc(userRef);
-
-      if (!userSnap.exists()) {
-        // Create user document
-        await setDoc(userRef, {
-          uid: user.uid,
-          email: user.email,
-          displayName: user.displayName,
-          photoURL: user.photoURL,
-          role: 'client'
-        });
-      }
-
-      setUser({
-        uid: user.uid,
-        email: user.email,
-        displayName: user.displayName,
-        photoURL: user.photoURL,
-        role: userSnap.exists() ? userSnap.data().role : 'client'
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/`,
+        },
       });
-
-      navigate('/');
+      if (error) throw error;
     } catch (err: any) {
       console.error(err);
       setError(err.message || 'Error al iniciar sesión con Google');
-    } finally {
       setIsLoading(false);
     }
   };
 
   const handleLogout = async () => {
-    await signOut(auth);
+    await supabase.auth.signOut();
     setUser(null);
     navigate('/');
   };
@@ -64,13 +61,20 @@ export default function Auth() {
     return (
       <div className="container mx-auto px-4 py-20 text-center max-w-md">
         <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
-          <img src={user.photoURL || `https://ui-avatars.com/api/?name=${user.displayName}`} alt="Avatar" className="w-24 h-24 rounded-full mx-auto mb-4" />
-          <h2 className="text-2xl font-black text-[#1B2A4A] mb-2">¡Hola, {user.displayName}!</h2>
+          <img
+            src={user.photoURL || `https://ui-avatars.com/api/?name=${user.displayName}`}
+            alt="Avatar"
+            className="w-24 h-24 rounded-full mx-auto mb-4"
+          />
+          <h2 className="text-2xl font-black text-[#1B2A4A] mb-2">
+            ¡Hola, {user.displayName}!
+          </h2>
           <p className="text-[#5C6B7A] mb-8">{user.email}</p>
           <button
             onClick={handleLogout}
-            className="w-full bg-red-50 text-red-600 font-bold py-3 rounded-xl hover:bg-red-100 transition-colors"
+            className="w-full bg-red-50 text-red-600 font-bold py-3 rounded-xl hover:bg-red-100 transition-colors flex items-center justify-center gap-2"
           >
+            <LogOut size={18} />
             Cerrar Sesión
           </button>
         </div>
@@ -108,7 +112,11 @@ export default function Auth() {
           disabled={isLoading}
           className="w-full bg-white border-2 border-gray-200 text-[#1B2A4A] font-bold py-3 px-4 rounded-xl hover:bg-gray-50 hover:border-gray-300 transition-all flex items-center justify-center gap-3 mb-6"
         >
-          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" className="w-5 h-5" />
+          <img
+            src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+            alt="Google"
+            className="w-5 h-5"
+          />
           {isLoading ? 'Cargando...' : 'Continuar con Google'}
         </button>
 
@@ -117,20 +125,38 @@ export default function Auth() {
           <span className="bg-white px-4 text-sm text-gray-400 absolute">o ingresá con tu email</span>
         </div>
 
-        <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); alert('Por favor, usá el inicio de sesión con Google por ahora.'); }}>
+        <form
+          className="space-y-4"
+          onSubmit={(e) => {
+            e.preventDefault();
+            alert('Por favor, usá el inicio de sesión con Google por ahora.');
+          }}
+        >
           {!isLogin && (
             <div>
               <label className="block text-sm font-medium text-[#5C6B7A] mb-1">Nombre completo</label>
-              <input type="text" className="w-full border border-gray-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#4A9FD4] transition-shadow" placeholder="Juan Pérez" />
+              <input
+                type="text"
+                className="w-full border border-gray-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#4A9FD4] transition-shadow"
+                placeholder="Juan Pérez"
+              />
             </div>
           )}
           <div>
             <label className="block text-sm font-medium text-[#5C6B7A] mb-1">Email</label>
-            <input type="email" className="w-full border border-gray-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#4A9FD4] transition-shadow" placeholder="ejemplo@correo.com" />
+            <input
+              type="email"
+              className="w-full border border-gray-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#4A9FD4] transition-shadow"
+              placeholder="ejemplo@correo.com"
+            />
           </div>
           <div>
             <label className="block text-sm font-medium text-[#5C6B7A] mb-1">Contraseña</label>
-            <input type="password" className="w-full border border-gray-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#4A9FD4] transition-shadow" placeholder="••••••••" />
+            <input
+              type="password"
+              className="w-full border border-gray-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#4A9FD4] transition-shadow"
+              placeholder="••••••••"
+            />
           </div>
 
           <button

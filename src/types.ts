@@ -20,5 +20,5 @@ export interface User {
   email: string | null;
   displayName: string | null;
   photoURL: string | null;
-  role?: 'admin' | 'client';
+  role?: 'admin' | 'cliente' | 'client';
 }

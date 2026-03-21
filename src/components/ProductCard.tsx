@@ -42,9 +42,6 @@ export default function ProductCard({ product }: { product: Product; key?: React
           <div className="text-2xl font-normal text-gray-900 mb-1">
             $ {product.precio.toLocaleString('es-AR')}
           </div>
-          <div className="text-xs text-green-600 font-semibold">
-            Llega gratis mañana
-          </div>
         </div>
       </div>
     </div>

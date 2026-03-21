@@ -38,18 +38,19 @@ export default function Home() {
   return (
     <div className="pb-16">
       {/* Hero Carousel */}
-      <section className="relative h-[400px] md:h-[600px] bg-[#1B2A4A] overflow-hidden group">
+      <section className="relative w-full h-[300px] md:h-[450px] bg-[#1B2A4A] overflow-hidden group">
+        {/* Imágenes del carrusel absolutas dentro del contenedor */}
         {banners.map((banner, index) => (
           <div
             key={banner.id}
             className={`absolute inset-0 transition-opacity duration-1000 ${
-              index === currentBanner ? 'opacity-100' : 'opacity-0'
+              index === currentBanner ? 'opacity-100' : 'opacity-0 pointer-events-none'
             }`}
           >
             <img
               src={banner.image}
               alt={banner.title}
-              className="w-full h-full object-contain"
+              className="w-full h-full object-cover"
               referrerPolicy="no-referrer"
             />
             {(banner.title || banner.subtitle) && (
@@ -71,17 +72,17 @@ export default function Home() {
           </div>
         ))}
 
-        {/* Gradient fade to match background */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#ebebeb] to-transparent pointer-events-none" />
-        
-        {/* Carousel Indicators */}
-        <div className="absolute bottom-8 left-0 right-0 flex justify-center gap-3 z-20">
+        {/* Gradient fade inferior */}
+        <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-[#ebebeb] to-transparent pointer-events-none z-10" />
+
+        {/* Indicadores */}
+        <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-3 z-20">
           {banners.map((_, idx) => (
             <button
               key={idx}
               onClick={() => setCurrentBanner(idx)}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                idx === currentBanner ? 'bg-[#4A9FD4] w-8' : 'bg-white/50 hover:bg-white/80'
+              className={`h-3 rounded-full transition-all duration-300 ${
+                idx === currentBanner ? 'bg-[#4A9FD4] w-8' : 'bg-white/50 hover:bg-white/80 w-3'
               }`}
             />
           ))}
@@ -97,7 +98,7 @@ export default function Home() {
             </div>
             <div>
               <h3 className="font-medium text-gray-900">Pagá con tarjeta o en efectivo</h3>
-              <p className="text-sm text-gray-500">Con Mercado Pago</p>
+              <p className="text-sm text-gray-500">con todos los bancos y billeteras</p>
             </div>
           </div>
           <div className="hidden md:block w-px h-12 bg-gray-200" />
@@ -106,8 +107,8 @@ export default function Home() {
               <Truck size={24} />
             </div>
             <div>
-              <h3 className="font-medium text-gray-900">Envío gratis desde $50.000</h3>
-              <p className="text-sm text-gray-500">Solo por estar registrado</p>
+              <h3 className="font-medium text-gray-900">Envíos a todo el país</h3>
+              <p className="text-sm text-gray-500">Calculá el costo en tu carrito</p>
             </div>
           </div>
           <div className="hidden md:block w-px h-12 bg-gray-200" />

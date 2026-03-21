@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle, CreditCard, Wallet, Building2, ArrowLeft } from 'lucide-react';
 import { useStore } from '../store/useStore';
+import { FUNCTIONS_URL } from '../supabase';
 import clsx from 'clsx';
 
 export default function Checkout() {
-  const { cart, clearCart } = useStore();
+  const { cart, clearCart, user } = useStore();
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [paymentMethod, setPaymentMethod] = useState('tarjeta');
@@ -14,7 +15,7 @@ export default function Checkout() {
   const [isSuccess, setIsSuccess] = useState(false);
 
   const subtotal = cart.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
-  const envio = subtotal > 50000 ? 0 : 5000;
+  const envio = subtotal > 0 ? 5000 : 0;
   const total = subtotal + envio;
 
   if (cart.length === 0 && !isSuccess) {
@@ -22,14 +23,56 @@ export default function Checkout() {
     return null;
   }
 
-  const handleConfirm = (e: React.FormEvent) => {
+  const formRef = useRef<HTMLFormElement>(null);
+
+  const handleConfirm = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsProcessing(true);
-    setTimeout(() => {
-      setIsProcessing(false);
+
+    const form = formRef.current;
+    if (!form) return;
+
+    const data = new FormData(form);
+
+    try {
+      const res = await fetch(`${FUNCTIONS_URL}/crear-pedido`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          user_id: user?.uid ?? null,
+          nombre_cliente: data.get('nombre') as string,
+          email_cliente: data.get('email') as string,
+          telefono: data.get('telefono') as string,
+          dni_cuit: data.get('dni') as string,
+          direccion: data.get('direccion') as string,
+          ciudad: data.get('ciudad') as string,
+          codigo_postal: data.get('cp') as string,
+          metodo_pago: paymentMethod,
+          items: cart.map((item) => ({
+            id: item.id,
+            nombre: item.nombre,
+            precio: item.precio,
+            cantidad: item.cantidad,
+          })),
+          subtotal,
+          envio,
+          total,
+        }),
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error ?? 'Error al procesar el pedido');
+      }
+
       setIsSuccess(true);
       clearCart();
-    }, 2500);
+    } catch (err: any) {
+      console.error('Error al crear pedido:', err);
+      alert(err.message ?? 'Error al procesar el pedido. Intentá nuevamente.');
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   if (isSuccess) {
@@ -75,26 +118,26 @@ export default function Checkout() {
           <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
             <h2 className="text-2xl font-black text-[#1B2A4A] mb-8">Finalizar Compra</h2>
             
-            <form id="checkout-form" onSubmit={handleConfirm} className="space-y-8">
+            <form ref={formRef} id="checkout-form" onSubmit={handleConfirm} className="space-y-8">
               {/* Datos Personales */}
               <div>
                 <h3 className="text-lg font-bold text-[#1B2A4A] mb-4 border-b border-gray-100 pb-2">1. Datos Personales</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-[#5C6B7A] mb-1">Nombre completo</label>
-                    <input required type="text" className="w-full border border-gray-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#4A9FD4] transition-shadow" placeholder="Ej: Juan Pérez" />
+                    <input name="nombre" required type="text" className="w-full border border-gray-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#4A9FD4] transition-shadow" placeholder="Ej: Juan Pérez" />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-[#5C6B7A] mb-1">Email</label>
-                    <input required type="email" className="w-full border border-gray-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#4A9FD4] transition-shadow" placeholder="ejemplo@correo.com" />
+                    <input name="email" required type="email" className="w-full border border-gray-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#4A9FD4] transition-shadow" placeholder="ejemplo@correo.com" />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-[#5C6B7A] mb-1">Teléfono</label>
-                    <input required type="tel" className="w-full border border-gray-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#4A9FD4] transition-shadow" placeholder="11 1234-5678" />
+                    <input name="telefono" required type="tel" className="w-full border border-gray-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#4A9FD4] transition-shadow" placeholder="11 1234-5678" />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-[#5C6B7A] mb-1">DNI / CUIT</label>
-                    <input required type="text" className="w-full border border-gray-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#4A9FD4] transition-shadow" placeholder="Sin puntos ni guiones" />
+                    <input name="dni" required type="text" className="w-full border border-gray-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#4A9FD4] transition-shadow" placeholder="Sin puntos ni guiones" />
                   </div>
                 </div>
               </div>
@@ -105,15 +148,15 @@ export default function Checkout() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="md:col-span-2">
                     <label className="block text-sm font-medium text-[#5C6B7A] mb-1">Calle y número</label>
-                    <input required type="text" className="w-full border border-gray-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#4A9FD4] transition-shadow" placeholder="Ej: Av. Corrientes 1234" />
+                    <input name="direccion" required type="text" className="w-full border border-gray-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#4A9FD4] transition-shadow" placeholder="Ej: Av. Corrientes 1234" />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-[#5C6B7A] mb-1">Ciudad</label>
-                    <input required type="text" className="w-full border border-gray-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#4A9FD4] transition-shadow" placeholder="Ej: CABA" />
+                    <input name="ciudad" required type="text" className="w-full border border-gray-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#4A9FD4] transition-shadow" placeholder="Ej: CABA" />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-[#5C6B7A] mb-1">Código Postal</label>
-                    <input required type="text" className="w-full border border-gray-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#4A9FD4] transition-shadow" placeholder="Ej: 1043" />
+                    <input name="cp" type="text" className="w-full border border-gray-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#4A9FD4] transition-shadow" placeholder="Ej: 1043" />
                   </div>
                 </div>
               </div>
@@ -206,7 +249,7 @@ export default function Checkout() {
               <div className="flex justify-between">
                 <span>Envío</span>
                 <span className="font-bold text-[#1B2A4A]">
-                  {envio === 0 ? <span className="text-green-500">Gratis</span> : `$${envio.toLocaleString('es-AR')}`}
+                  ${envio.toLocaleString('es-AR')}
                 </span>
               </div>
             </div>

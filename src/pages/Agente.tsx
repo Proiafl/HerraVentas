@@ -1,15 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, Wrench, User, Sparkles } from 'lucide-react';
-import { GoogleGenAI } from '@google/genai';
-import { productos } from '../data/productos';
+import { FUNCTIONS_URL } from '../supabase';
 import ProductCard from '../components/ProductCard';
+import { Product } from '../types';
 
 interface Message {
   id: string;
   role: 'user' | 'agent';
   content: string;
-  recommendedProducts?: any[];
+  recommendedProducts?: Product[];
 }
 
 export default function Agente() {
@@ -47,54 +47,32 @@ export default function Agente() {
     setIsLoading(true);
 
     try {
-      const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-      
-      const systemInstruction = `Sos un experto en herramientas de construcción y hogar. Trabajás para Herraventas, una ferretería online argentina. Cuando el usuario describa un trabajo o tarea, recomendá la herramienta más adecuada, mencionando marca (preferentemente Bosch, DeWalt, Total o SKIL), tipo de herramienta, y un precio estimado en pesos argentinos. Sé amigable, directo y conciso. Si el usuario pregunta algo fuera de herramientas, redirigilo amablemente al tema.
+      // Construir historial (excluye el mensaje inicial del agente)
+      const history = messages.slice(1).map((m) => ({
+        role: m.role === 'user' ? 'user' : 'model',
+        content: m.content,
+      }));
 
-Aquí tienes nuestro catálogo actual para recomendar:
-${JSON.stringify(productos.map(p => ({ id: p.id, nombre: p.nombre, marca: p.marca, precio: p.precio, categoria: p.categoria }))) }
-
-Si recomiendas un producto específico de nuestro catálogo, incluye su ID en tu respuesta en el formato [PRODUCT_ID:id] para que podamos mostrar la tarjeta del producto.`;
-
-      const chat = ai.chats.create({
-        model: 'gemini-3.1-pro-preview',
-        config: {
-          systemInstruction,
-          temperature: 0.7,
-        },
+      const res = await fetch(`${FUNCTIONS_URL}/agente-ia`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: userMessage.content, history }),
       });
 
-      // Reconstruct history for context
-      for (const msg of messages.slice(1)) {
-        await chat.sendMessage({ message: msg.content });
-      }
+      if (!res.ok) throw new Error(`Error ${res.status}`);
 
-      const response = await chat.sendMessage({ message: userMessage.content });
-      let responseText = response.text || 'Lo siento, no pude procesar tu solicitud.';
-      
-      // Extract product IDs
-      const productIds: string[] = [];
-      const regex = /\[PRODUCT_ID:(\d+)\]/g;
-      let match;
-      while ((match = regex.exec(responseText)) !== null) {
-        productIds.push(match[1]);
-      }
-      
-      // Remove tags from text
-      responseText = responseText.replace(/\[PRODUCT_ID:\d+\]/g, '').trim();
-
-      const recommendedProducts = productos.filter(p => productIds.includes(p.id));
+      const data = await res.json();
 
       const agentMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: 'agent',
-        content: responseText,
-        recommendedProducts: recommendedProducts.length > 0 ? recommendedProducts : undefined,
+        content: data.response || 'Lo siento, no pude procesar tu solicitud.',
+        recommendedProducts: data.recommendedProducts?.length > 0 ? data.recommendedProducts : undefined,
       };
 
       setMessages((prev) => [...prev, agentMessage]);
     } catch (error) {
-      console.error('Error calling Gemini:', error);
+      console.error('Error llamando al agente:', error);
       setMessages((prev) => [
         ...prev,
         {
@@ -136,7 +114,7 @@ Si recomiendas un producto específico de nuestro catálogo, incluye su ID en tu
               >
                 {msg.role === 'user' ? <User size={20} /> : <Wrench size={20} />}
               </div>
-              
+
               <div className={`max-w-[80%] ${msg.role === 'user' ? 'items-end' : 'items-start'} flex flex-col gap-2`}>
                 <div
                   className={`p-4 rounded-2xl shadow-sm ${
@@ -147,21 +125,36 @@ Si recomiendas un producto específico de nuestro catálogo, incluye su ID en tu
                 >
                   <p className="whitespace-pre-wrap leading-relaxed">{msg.content}</p>
                 </div>
-                
+
                 {msg.recommendedProducts && msg.recommendedProducts.length > 0 && (
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2 w-full">
-                    {msg.recommendedProducts.map(product => (
-                      <div key={product.id} className="w-full max-w-[250px]">
-                        <ProductCard product={product} />
-                      </div>
-                    ))}
+                    {msg.recommendedProducts.map((product) => {
+                      // Mapear campos Supabase (snake_case) a los del tipo Product
+                      const p: Product = {
+                        id: product.id,
+                        nombre: product.nombre,
+                        marca: product.marca,
+                        categoria: product.categoria,
+                        precio: product.precio,
+                        descripcion: product.descripcion,
+                        especificaciones: product.especificaciones ?? {},
+                        imagenUrl: product.imagen_url ?? product.imagenUrl ?? '',
+                        rating: product.rating ?? 4.5,
+                        stock: product.stock ?? 0,
+                      };
+                      return (
+                        <div key={p.id} className="w-full max-w-[250px]">
+                          <ProductCard product={p} />
+                        </div>
+                      );
+                    })}
                   </div>
                 )}
               </div>
             </motion.div>
           ))}
         </AnimatePresence>
-        
+
         {isLoading && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -172,21 +165,14 @@ Si recomiendas un producto específico de nuestro catálogo, incluye su ID en tu
               <Wrench size={20} />
             </div>
             <div className="bg-white border border-gray-100 p-4 rounded-2xl rounded-tl-none shadow-sm flex items-center gap-2">
-              <motion.div
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ duration: 1, repeat: Infinity }}
-                className="w-2 h-2 bg-[#4A9FD4] rounded-full"
-              />
-              <motion.div
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ duration: 1, repeat: Infinity, delay: 0.2 }}
-                className="w-2 h-2 bg-[#4A9FD4] rounded-full"
-              />
-              <motion.div
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ duration: 1, repeat: Infinity, delay: 0.4 }}
-                className="w-2 h-2 bg-[#4A9FD4] rounded-full"
-              />
+              {[0, 0.2, 0.4].map((delay, i) => (
+                <motion.div
+                  key={i}
+                  animate={{ scale: [1, 1.2, 1] }}
+                  transition={{ duration: 1, repeat: Infinity, delay }}
+                  className="w-2 h-2 bg-[#4A9FD4] rounded-full"
+                />
+              ))}
             </div>
           </motion.div>
         )}

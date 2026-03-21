@@ -2,362 +2,661 @@ import { Product } from '../types';
 
 export const productos: Product[] = [
   {
-    id: '1',
-    nombre: 'Taladro Percutor Inalámbrico 20V',
-    marca: 'DeWalt',
-    categoria: 'Taladros',
-    precio: 245000,
-    descripcion: 'Taladro percutor inalámbrico con motor sin escobillas (Brushless) para mayor eficiencia y durabilidad. Ideal para trabajos en concreto, madera y metal.',
+    id: 'amoladora-angular-1100w-125mm-total',
+    nombre: 'Amoladora Angular Industrial TOTAL 1100w/125mm TGFF110125565-4 Color Turquesa 50Hz',
+    marca: 'Total',
+    categoria: 'Amoladoras',
+    precio: 130000,
+    descripcion: 'La Amoladora TOTAL 1100W brinda potencia y precisión con control total de velocidad.',
     especificaciones: {
-      'Voltaje': '20V MAX',
-      'Velocidad sin carga': '0-500 / 0-1750 RPM',
-      'Impactos por minuto': '0-8500 / 0-29750 IPM',
-      'Mandril': '1/2" (13mm)',
-      'Peso': '1.2 kg'
+      'Potencia': '1100W',
+      'Velocidad variable': '5000-12000 rpm',
+      'Diámetro del disco': '125 mm',
+      'Rosca del husillo': 'M14'
     },
-    imagenUrl: 'https://picsum.photos/seed/taladro-dewalt/400/400',
-    rating: 4.8,
-    stock: 15
+    imagenUrl: '/images/products/amoladora-angular-1100w-125mm-total.png',
+    rating: 4.5,
+    stock: 1
   },
   {
-    id: '2',
-    nombre: 'Amoladora Angular 4 1/2" 820W',
-    marca: 'SKIL',
+    id: 'amoladora-angular-710w-115mm-total',
+    nombre: 'Amoladora Angular 710W 115mm Total Industrial TG10711576-4',
+    marca: 'Total',
     categoria: 'Amoladoras',
-    precio: 65000,
-    descripcion: 'Amoladora angular compacta y potente, ideal para cortes y desbastes en metal y mampostería. Diseño ergonómico para mayor comodidad.',
+    precio: 82000,
+    descripcion: 'La Amoladora Angular Total TG10711576-4 es la herramienta ideal para trabajos de corte y desbaste en metal, mampostería y otros materiales.',
     especificaciones: {
-      'Potencia': '820W',
-      'Diámetro del disco': '4 1/2" (115mm)',
-      'Velocidad sin carga': '11000 RPM',
-      'Eje': 'M14',
+      'Potencia': '710W',
+      'Velocidad máxima': '12000 rpm',
+      'Diámetro del disco': '115 mm',
+      'Voltaje': '220V'
+    },
+    imagenUrl: '/images/products/amoladora-angular-710w-115mm-total.png',
+    rating: 4.5,
+    stock: 2
+  },
+  {
+    id: 'amoladora-angular-20v-brushless-115mm-total',
+    nombre: 'Amoladora Angular Inalambrica TOTAL 20V TAGLI27153 Sin Carbones de 115mm Industrial',
+    marca: 'Total',
+    categoria: 'Amoladoras',
+    precio: 150000,
+    descripcion: 'La Amoladora Angular Total 20V Brushless ofrece potencia profesional sin cables. Ideal para cortes, pulido y desbaste en metal o mampostería.',
+    especificaciones: {
+      'Motor': 'Sin carbones (brushless)',
+      'Velocidad variable': '3000-6000-9000 rpm',
+      'Diámetro del disco': '115 mm',
+      'Batería': '20V (No incluida)'
+    },
+    imagenUrl: '/images/products/amoladora-angular-20v-brushless-115mm-total.png',
+    rating: 4.5,
+    stock: 2
+  },
+  {
+    id: 'amoladora-angular-dewalt-dwe496',
+    nombre: 'Amoladora Angular Profesional DeWalt DWE496-AR de 2600W',
+    marca: 'DeWalt',
+    categoria: 'Amoladoras',
+    precio: 418000,
+    descripcion: 'La Amoladora angular DeWalt DWE496 es la herramienta perfecta para tus proyectos de bricolaje y trabajos profesionales. Con sus 2600 W de potencia.',
+    especificaciones: {
+      'Potencia': '2600W',
+      'Velocidad máxima': '6500 rpm',
+      'Diámetro del disco': '230 mm',
+      'Peso': '5.4 kg'
+    },
+    imagenUrl: '/images/products/amoladora-angular-dewalt-dwe496.png',
+    rating: 4.5,
+    stock: 4
+  },
+  {
+    id: 'amoladora-angular-bosch-gws700-de-710w-g3tli',
+    nombre: 'Amoladora Angular Bosch GWS700 de 710W',
+    marca: 'Bosch',
+    categoria: 'Amoladoras',
+    precio: 76500,
+    descripcion: 'La Bosch GWS700 de 710W es una amoladora angular ligera y confiable, diseñada para trabajos de corte, desbaste y lijado.',
+    especificaciones: {
+      'Potencia': '710W',
+      'Velocidad máxima': '12000 rpm',
+      'Diámetro del disco': '115 mm',
       'Peso': '1.7 kg'
     },
-    imagenUrl: 'https://picsum.photos/seed/amoladora-skil/400/400',
+    imagenUrl: '/images/products/amoladora-angular-bosch-gws700-de-710w-g3tli.png',
     rating: 4.5,
-    stock: 22
+    stock: 4
   },
   {
-    id: '3',
-    nombre: 'Sierra Circular 7 1/4" 1500W',
-    marca: 'Bosch',
-    categoria: 'Sierras',
-    precio: 185000,
-    descripcion: 'Sierra circular profesional con motor de alta potencia. Base de aluminio para cortes precisos y durabilidad extrema.',
-    especificaciones: {
-      'Potencia': '1500W',
-      'Diámetro del disco': '7 1/4" (184mm)',
-      'Velocidad sin carga': '6000 RPM',
-      'Capacidad de corte a 90°': '64 mm',
-      'Peso': '3.7 kg'
-    },
-    imagenUrl: 'https://picsum.photos/seed/sierra-bosch/400/400',
-    rating: 4.9,
-    stock: 8
-  },
-  {
-    id: '4',
-    nombre: 'Lijadora Roto Orbital 300W',
-    marca: 'Total',
-    categoria: 'Lijadoras',
-    precio: 52000,
-    descripcion: 'Lijadora roto orbital con sistema de recolección de polvo integrado. Acabados perfectos en madera y metal sin marcas de remolino.',
-    especificaciones: {
-      'Potencia': '300W',
-      'Diámetro del plato': '5" (125mm)',
-      'Velocidad sin carga': '12000 RPM',
-      'Órbitas por minuto': '24000 OPM',
-      'Peso': '1.4 kg'
-    },
-    imagenUrl: 'https://picsum.photos/seed/lijadora-total/400/400',
-    rating: 4.3,
-    stock: 30
-  },
-  {
-    id: '5',
-    nombre: 'Rotomartillo SDS Plus 800W',
-    marca: 'Bosch',
-    categoria: 'Taladros',
-    precio: 210000,
-    descripcion: 'Rotomartillo electroneumático para perforación rápida en hormigón. 3 modos de operación: perforación, perforación con percusión y cincelado.',
-    especificaciones: {
-      'Potencia': '800W',
-      'Energía de impacto': '2.7 J',
-      'Velocidad nominal': '0-900 RPM',
-      'Encastre': 'SDS Plus',
-      'Peso': '2.8 kg'
-    },
-    imagenUrl: 'https://picsum.photos/seed/rotomartillo-bosch/400/400',
-    rating: 4.7,
-    stock: 12
-  },
-  {
-    id: '6',
-    nombre: 'Atornillador de Impacto 20V',
-    marca: 'DeWalt',
-    categoria: 'Herramientas manuales',
-    precio: 195000,
-    descripcion: 'Atornillador de impacto compacto con 3 luces LED para máxima visibilidad. Diseño ligero para trabajar en espacios reducidos.',
-    especificaciones: {
-      'Voltaje': '20V MAX',
-      'Torque máximo': '170 Nm',
-      'Velocidad sin carga': '0-2800 RPM',
-      'Impactos por minuto': '0-3200 IPM',
-      'Encastre': '1/4" Hexagonal'
-    },
-    imagenUrl: 'https://picsum.photos/seed/atornillador-dewalt/400/400',
-    rating: 4.9,
-    stock: 18
-  },
-  {
-    id: '7',
-    nombre: 'Sierra Caladora 650W',
+    id: 'amoladora-de-mano-profesional-skil-9004-830w',
+    nombre: 'Amoladora de Mano Profesional Skil 9004 830W',
     marca: 'SKIL',
-    categoria: 'Sierras',
-    precio: 78000,
-    descripcion: 'Sierra caladora con acción pendular de 4 etapas para cortes más rápidos. Sistema de cambio de hoja sin herramientas.',
+    categoria: 'Amoladoras',
+    precio: 85500,
+    descripcion: 'La Skil 9004 de 830W combina potencia y durabilidad en un diseño práctico para profesionales y aficionados exigentes.',
     especificaciones: {
-      'Potencia': '650W',
-      'Velocidad sin carga': '800-3000 CPM',
-      'Capacidad de corte en madera': '85 mm',
-      'Capacidad de corte en aluminio': '15 mm',
-      'Peso': '2.2 kg'
+      'Potencia': '830W',
+      'Velocidad máxima': '11000 rpm',
+      'Diámetro del disco': '115 mm',
+      'Peso': '1.7 kg'
     },
-    imagenUrl: 'https://picsum.photos/seed/caladora-skil/400/400',
-    rating: 4.4,
-    stock: 25
+    imagenUrl: '/images/products/amoladora-de-mano-profesional-skil-9004-830w.png',
+    rating: 4.5,
+    stock: 2
   },
   {
-    id: '8',
-    nombre: 'Set de Brocas y Puntas 100 piezas',
+    id: 'aspiradora-mano-inalambrica-20v-total',
+    nombre: 'Aspiradora de Mano Inalámbrica 20V Total – Potencia y Portabilidad TVLI201261',
+    marca: 'Total',
+    categoria: 'Herramientas Electricas',
+    precio: 80000,
+    descripcion: 'La Total Aspiradora de Mano 20V es ideal para mantener tu auto, hogar o taller siempre limpio. Diseño compacto y potencia inalámbrica.',
+    especificaciones: {
+      'Batería': '20V',
+      'Filtro': 'Lavable',
+      'Diseño': 'Ergonómico y liviano'
+    },
+    imagenUrl: '/images/products/aspiradora-mano-inalambrica-20v-total.png',
+    rating: 4.5,
+    stock: 2
+  },
+  {
+    id: 'caja-herramientas-aisladas-16pcs-total',
+    nombre: 'Caja de Herramientas Aisladas 16 Piezas Total THKITH1601',
+    marca: 'Total',
+    categoria: 'Herramientas Manuales',
+    precio: 180000,
+    descripcion: 'La Caja de Herramientas Aisladas Total 16 piezas brinda seguridad y calidad para trabajos eléctricos. Aisladas hasta 1000V.',
+    especificaciones: {
+      'Piezas': '16',
+      'Aislación': 'Hasta 1000V',
+      'Norma': 'IEC 60900'
+    },
+    imagenUrl: '/images/products/caja-herramientas-aisladas-16pcs-total.png',
+    rating: 4.5,
+    stock: 2
+  },
+  {
+    id: 'caja-herramientas-139pcs-total',
+    nombre: 'Caja de Herramientas Completa 139 Piezas Total Industrial THKTHP21396',
+    marca: 'Total',
+    categoria: 'Herramientas Manuales',
+    precio: 245000,
+    descripcion: 'La Caja de Herramientas Total 139 piezas ofrece una solución completa para cualquier tarea de reparación o montaje. Ideal para taller.',
+    especificaciones: {
+      'Piezas': '139',
+      'Material': 'Acero al carbono y cromo vanadio',
+      'Estuche': 'Maletín rígido portátil'
+    },
+    imagenUrl: '/images/products/caja-herramientas-139pcs-total.png',
+    rating: 4.5,
+    stock: 0
+  },
+  {
+    id: 'caja-herramientas-manuales-168pcs-total',
+    nombre: 'Caja de Herramientas Manuales 168 Piezas Total THKTHP21686-4',
+    marca: 'Total',
+    categoria: 'Herramientas Manuales',
+    precio: 150000,
+    descripcion: 'La Caja de Herramientas Total 168 piezas reúne todo lo necesario para trabajos de mantenimiento general. Material acero al carbono.',
+    especificaciones: {
+      'Piezas': '168',
+      'Material': 'Acero al carbono',
+      'Estuche': 'Maletín rígido portátil'
+    },
+    imagenUrl: '/images/products/caja-herramientas-manuales-168pcs-total.png',
+    rating: 4.5,
+    stock: 2
+  },
+  {
+    id: 'caja-metalica-3pisos-total',
+    nombre: 'Caja Metálica para Herramientas 3 Pisos Total THT10701',
     marca: 'Total',
     categoria: 'Accesorios',
-    precio: 35000,
-    descripcion: 'Completo set de accesorios para taladrar y atornillar. Incluye brocas para madera, metal, mampostería y puntas de atornillar.',
+    precio: 130000,
+    descripcion: 'La Caja Metálica Total 3 Pisos ofrece máxima organización para herramientas profesionales. Estructura metálica reforzada.',
     especificaciones: {
-      'Cantidad de piezas': '100',
-      'Material': 'Acero HSS / Cromo Vanadio',
-      'Estuche': 'Plástico de alto impacto',
-      'Uso': 'Multiuso'
+      'Niveles': '3 desplegables',
+      'Material': 'Metálica reforzada',
+      'Capacidad': 'Alta carga'
     },
-    imagenUrl: 'https://picsum.photos/seed/set-brocas-total/400/400',
-    rating: 4.6,
-    stock: 40
+    imagenUrl: '/images/products/caja-metalica-3pisos-total.png',
+    rating: 4.5,
+    stock: 2
   },
   {
-    id: '9',
-    nombre: 'Lijadora de Banda 900W',
+    id: 'estuche-herramientas-9pcs-total',
+    nombre: 'Estuche de Herramientas 9 Piezas Total THKTHP9',
+    marca: 'Total',
+    categoria: 'Herramientas Manuales',
+    precio: 79000,
+    descripcion: 'El Estuche de Herramientas Total 9 piezas es práctico, compacto y perfecto para el hogar o emergencias.',
+    especificaciones: {
+      'Piezas': '9',
+      'Incluye': 'Martillo, destornilladores, pinza y cinta métrica',
+      'Estuche': 'Plástico resistente'
+    },
+    imagenUrl: '/images/products/estuche-herramientas-9pcs-total.png',
+    rating: 4.5,
+    stock: 2
+  },
+  {
+    id: 'hidrolavadora-electrica-1400w-total',
+    nombre: 'Hidrolavadora Eléctrica 1400W Total Compacta TGT11316-4',
+    marca: 'Total',
+    categoria: 'Herramientas Manuales',
+    precio: 240000,
+    descripcion: 'La Hidrolavadora Total 1400W es ideal para limpieza de autos, patios y herramientas con alta presión de agua.',
+    especificaciones: {
+      'Potencia': '1400W',
+      'Presión máxima': '105 bar',
+      'Caudal': '5.5 L/min',
+      'Manguera': '5m alta presión'
+    },
+    imagenUrl: '/images/products/hidrolavadora-electrica-1400w-total.png',
+    rating: 4.5,
+    stock: 2
+  },
+  {
+    id: 'lijadora-orbital-320w-total',
+    nombre: 'Lijadora Electrica Orbital 320W Total Industrial TF13018',
+    marca: 'Total',
+    categoria: 'Lijadoras',
+    precio: 130000,
+    descripcion: 'La Lijadora Orbital Total 320W asegura acabados finos en superficies planas de madera o metal.',
+    especificaciones: {
+      'Potencia': '320W',
+      'Base orbital': '110x100mm',
+      'Velocidad': '14.000 rpm',
+      'Recolector': 'Polvo incluido'
+    },
+    imagenUrl: '/images/products/lijadora-orbital-320w-total.png',
+    rating: 4.5,
+    stock: 2
+  },
+  {
+    id: 'lijadora-orbital-palma-20v-total',
+    nombre: 'Lijadora Orbital de Palma 20V Total Industrial TSHSLI2014',
+    marca: 'Total',
+    categoria: 'Lijadoras',
+    precio: 105000,
+    descripcion: 'La Lijadora Orbital de Palma Total 20V brinda acabados suaves y precisos en madera o metal. Ideal para trabajos finos.',
+    especificaciones: {
+      'Batería': '20V',
+      'Diseño': 'Ergonómico tipo palma',
+      'Vibración': 'Baja'
+    },
+    imagenUrl: '/images/products/lijadora-orbital-palma-20v-total.png',
+    rating: 4.5,
+    stock: 2
+  },
+  {
+    id: 'lijadora-orbital-bosch-gss140-220w',
+    nombre: 'Lijadora Orbital Bosch GSS140 220W',
     marca: 'Bosch',
     categoria: 'Lijadoras',
-    precio: 165000,
-    descripcion: 'Lijadora de banda de alta potencia para remoción rápida de material. Diseño robusto con rodillos de aluminio.',
+    precio: 115000,
+    descripcion: 'La lijadora Bosch GSS140 220W es la herramienta perfecta para quienes buscan acabados profesionales en trabajos de carpintería.',
     especificaciones: {
-      'Potencia': '900W',
-      'Velocidad de la banda': '200-330 m/min',
-      'Superficie de lijado': '75 x 130 mm',
-      'Tamaño de la banda': '75 x 533 mm',
-      'Peso': '3.4 kg'
+      'Potencia': '220W',
+      'Oscilaciones': '28000 opm',
+      'Diámetro oscilación': '1.5mm',
+      'Peso': '1.2 kg'
     },
-    imagenUrl: 'https://picsum.photos/seed/lijadora-banda-bosch/400/400',
-    rating: 4.8,
-    stock: 10
-  },
-  {
-    id: '10',
-    nombre: 'Amoladora Recta 600W',
-    marca: 'DeWalt',
-    categoria: 'Amoladoras',
-    precio: 145000,
-    descripcion: 'Amoladora recta para trabajos de desbaste y pulido en lugares de difícil acceso. Cuello largo para mayor alcance.',
-    especificaciones: {
-      'Potencia': '600W',
-      'Velocidad sin carga': '25000 RPM',
-      'Diámetro de boquilla': '1/4" (6mm)',
-      'Diámetro máximo de muela': '38 mm',
-      'Peso': '1.7 kg'
-    },
-    imagenUrl: 'https://picsum.photos/seed/amoladora-recta-dewalt/400/400',
-    rating: 4.7,
-    stock: 14
-  },
-  {
-    id: '11',
-    nombre: 'Taladro de Banco 350W',
-    marca: 'Total',
-    categoria: 'Taladros',
-    precio: 180000,
-    descripcion: 'Taladro de banco con 5 velocidades para perforaciones precisas en madera, metal y plástico. Mesa de trabajo inclinable.',
-    especificaciones: {
-      'Potencia': '350W',
-      'Velocidades': '5 (580-2650 RPM)',
-      'Mandril': '13 mm',
-      'Recorrido del husillo': '50 mm',
-      'Altura total': '580 mm'
-    },
-    imagenUrl: 'https://picsum.photos/seed/taladro-banco-total/400/400',
+    imagenUrl: '/images/products/lijadora-orbital-bosch-gss140-220w.png',
     rating: 4.5,
     stock: 5
   },
   {
-    id: '12',
-    nombre: 'Sierra Ingletadora 10" 1800W',
+    id: 'lijadora-orbital-profesional-carpinteria-skil-7232-200w',
+    nombre: 'Lijadora Orbital Profesional Carpintería Skil 7232 - 200W',
+    marca: 'SKIL',
+    categoria: 'Lijadoras',
+    precio: 76000,
+    descripcion: 'La Lijadora Orbital Skil 7232 de 200W es la herramienta ideal para lograr acabados finos en superficies de madera, metal y plásticos.',
+    especificaciones: {
+      'Potencia': '200W',
+      'Oscilaciones': '28000 opm',
+      'Diámetro oscilación': '1.6mm',
+      'Peso': '1.4 kg'
+    },
+    imagenUrl: '/images/products/lijadora-orbital-profesional-carpinteria-skil-7232-200w.png',
+    rating: 4.5,
+    stock: 5
+  },
+  {
+    id: 'llave-impacto-20v-brushless-total',
+    nombre: 'Llave de Impacto 20V Brushless 400Nm Total Industrial TIWLI20401',
+    marca: 'Total',
+    categoria: 'Herramientas Electricas',
+    precio: 180000,
+    descripcion: 'La Llave de Impacto Total 20V es ideal para mecánicos, talleres y mantenimiento. Potente y compacta, facilita el trabajo sin cables.',
+    especificaciones: {
+      'Torque máximo': '400 Nm',
+      'Motor': 'Brushless',
+      'Porta vasos': '1/2"'
+    },
+    imagenUrl: '/images/products/llave-impacto-20v-brushless-total.png',
+    rating: 4.5,
+    stock: 0
+  },
+  {
+    id: 'pico-de-loro-200mm-total',
+    nombre: 'Herramienta Pico de Loro 200mm Total Industrial THT280806',
+    marca: 'Total',
+    categoria: 'Herramientas Manuales',
+    precio: 11000,
+    descripcion: 'El Pico de Loro Total 200mm ofrece un agarre firme y preciso en tareas de ajuste y sujeción. Fabricado en acero forjado.',
+    especificaciones: {
+      'Largo': '200mm',
+      'Material': 'Acero forjado',
+      'Mango': 'Ergonómico antideslizante'
+    },
+    imagenUrl: '/images/products/pico-de-loro-200mm-total.png',
+    rating: 4.5,
+    stock: 6
+  },
+  {
+    id: 'pulverizador-presion-5l-total',
+    nombre: 'Pulverizador a Presión 5 Litros Total THSPP30502',
+    marca: 'Total',
+    categoria: 'Accesorios',
+    precio: 40000,
+    descripcion: 'El Pulverizador Total 5L es ideal para jardinería, fumigación y limpieza. Su diseño ergonómico facilita el uso prolongado.',
+    especificaciones: {
+      'Capacidad': '5 litros',
+      'Boquilla': 'Regulable',
+      'Presión': 'Manual por bombeo'
+    },
+    imagenUrl: '/images/products/pulverizador-presion-5l-total.png',
+    rating: 4.5,
+    stock: 2
+  },
+  {
+    id: 'rotomartillo-perforador-rompedor-bosch-gbh2-24-d-820w-p98gl',
+    nombre: 'Rotomartillo Perforador Rompedor Bosch GBH2-24 D 820W',
+    marca: 'Bosch',
+    categoria: 'Rotomartillos Perforadores',
+    precio: 350000,
+    descripcion: 'El Bosch GBH2-24 D de 820W es un martillo perforador y rompedor de gran rendimiento, diseñado para trabajos en concreto, piedra y mampostería.',
+    especificaciones: {
+      'Potencia': '820W',
+      'Oscilaciones': '28000 opm',
+      'Peso': '1.4 kg'
+    },
+    imagenUrl: '/images/products/rotomartillo-perforador-rompedor-bosch-gbh2-24-d-820w-p98gl.png',
+    rating: 4.5,
+    stock: 4
+  },
+  {
+    id: 'rotomartillo-sds-plus-650w-total',
+    nombre: 'Rotomartillo SDS Plus 650W Total Profesional TH306236-4',
+    marca: 'Total',
+    categoria: 'Rotomartillos Perforadores',
+    precio: 140000,
+    descripcion: 'El Rotomartillo Total SDS Plus 650W es perfecto para perforar hormigón y mampostería con potencia profesional.',
+    especificaciones: {
+      'Potencia': '650W',
+      'Encastre': 'SDS Plus',
+      'Velocidad': '0-1100 rpm',
+      'Funciones': 'Rotomartillo, taladro y cincelado'
+    },
+    imagenUrl: '/images/products/rotomartillo-sds-plus-650w-total.png',
+    rating: 4.5,
+    stock: 2
+  },
+  {
+    id: 'set-llaves-ajustables-3pcs-total',
+    nombre: 'Set de Llaves Ajustables 3 Piezas Total THTK1013',
+    marca: 'Total',
+    categoria: 'Herramientas Manuales',
+    precio: 40000,
+    descripcion: 'El Set de Llaves Ajustables Total 3 piezas es esencial para cualquier taller o caja de herramientas. Tamaños: 6", 8" y 10".',
+    especificaciones: {
+      'Piezas': '3 (6", 8", 10")',
+      'Material': 'Acero al cromo-vanadio',
+      'Empuñadura': 'Ergonómica antideslizante'
+    },
+    imagenUrl: '/images/products/set-llaves-ajustables-3pcs-total.png',
+    rating: 4.5,
+    stock: 5
+  },
+  {
+    id: 'set-llaves-bocallaves-24pcs-total',
+    nombre: 'Set de Llaves y Bocallaves 24 Piezas 1/2" Total THT141253',
+    marca: 'Total',
+    categoria: 'Herramientas Manuales',
+    precio: 190000,
+    descripcion: 'El Set de Bocallaves Total 24 piezas es perfecto para reparaciones y trabajos de precisión. Cuadro de 1/2".',
+    especificaciones: {
+      'Piezas': '24',
+      'Cuadro': '1/2"',
+      'Material': 'Cromo vanadio'
+    },
+    imagenUrl: '/images/products/set-llaves-bocallaves-24pcs-total.png',
+    rating: 4.5,
+    stock: 1
+  },
+  {
+    id: 'set-llaves-bocallaves-46pcs-total',
+    nombre: 'Set de Llaves y Bocallaves 46 Piezas 1/4" Total THT141462',
+    marca: 'Total',
+    categoria: 'Herramientas Manuales',
+    precio: 100000,
+    descripcion: 'El Set de Bocallaves Total 46 piezas ofrece versatilidad y calidad profesional en un práctico estuche. Cuadro de 1/4".',
+    especificaciones: {
+      'Piezas': '46',
+      'Cuadro': '1/4"',
+      'Material': 'Acero al cromo vanadio'
+    },
+    imagenUrl: '/images/products/set-llaves-bocallaves-46pcs-total.png',
+    rating: 4.5,
+    stock: 3
+  },
+  {
+    id: 'sierra-caladora-570w-total',
+    nombre: 'Sierra Caladora 570W Total Industrial TS20665',
+    marca: 'Total',
+    categoria: 'Sierras',
+    precio: 130000,
+    descripcion: 'La Sierra Caladora Total 570W permite cortes curvos y precisos en madera y metal. Ideal para bricolaje o carpintería.',
+    especificaciones: {
+      'Potencia': '570W',
+      'Velocidad': 'Variable',
+      'Cambio de hoja': 'Rápido sin herramientas'
+    },
+    imagenUrl: '/images/products/sierra-caladora-570w-total.png',
+    rating: 4.5,
+    stock: 2
+  },
+  {
+    id: 'sierra-circular-1200w-total',
+    nombre: 'Sierra Circular 1200W Total Industrial TS11218576-4',
+    marca: 'Total',
+    categoria: 'Sierras',
+    precio: 140000,
+    descripcion: 'La Sierra Circular Total 1200W es una herramienta robusta y confiable para cortes limpios y rápidos.',
+    especificaciones: {
+      'Potencia': '1200W',
+      'Disco': '185mm',
+      'Protector': 'Hoja retráctil'
+    },
+    imagenUrl: '/images/products/sierra-circular-1200w-total.png',
+    rating: 4.5,
+    stock: 2
+  },
+  {
+    id: 'sierra-circular-bosch-gks130-1300w',
+    nombre: 'Sierra Circular Bosch GKS130 1300W',
+    marca: 'Bosch',
+    categoria: 'Sierras',
+    precio: 148000,
+    descripcion: 'La Bosch GKS130 de 1300W es una sierra circular potente y resistente, diseñada para cortes limpios en madera y tableros.',
+    especificaciones: {
+      'Potencia': '1300W',
+      'Velocidad máxima': '6000rpm',
+      'Diámetro del disco': '184mm',
+      'Peso': '3.7kg'
+    },
+    imagenUrl: '/images/products/sierra-circular-bosch-gks130-1300w.png',
+    rating: 4.5,
+    stock: 4
+  },
+  {
+    id: 'sierra-circular-bosch-gks150-1500w',
+    nombre: 'Sierra Circular Bosch GKS150 1500W',
+    marca: 'Bosch',
+    categoria: 'Sierras',
+    precio: 215000,
+    descripcion: 'La Bosch GKS150 de 1500W ofrece potencia superior para cortes exigentes en todo tipo de maderas. Con alta durabilidad y precisión.',
+    especificaciones: {
+      'Potencia': '1500W',
+      'Uso': 'Profesional',
+      'Cortes': 'Exigentes en maderas'
+    },
+    imagenUrl: '/images/products/sierra-circular-bosch-gks150-1500w.png',
+    rating: 4.5,
+    stock: 5
+  },
+  {
+    id: 'sierra-circular-ingleteadora-skil-3310-1800w',
+    nombre: 'Sierra Circular Ingleteadora Skil 3310 1800W',
     marca: 'SKIL',
     categoria: 'Sierras',
-    precio: 290000,
-    descripcion: 'Sierra ingletadora compuesta para cortes precisos en ángulos. Incluye láser para mayor precisión y bolsa recolectora de polvo.',
+    precio: 450000,
+    descripcion: 'La Skil 3310 de 1800W es una sierra ingleteadora robusta y precisa, perfecta para cortes transversales y en ángulo en madera.',
     especificaciones: {
       'Potencia': '1800W',
-      'Diámetro del disco': '10" (254mm)',
-      'Velocidad sin carga': '4500 RPM',
-      'Capacidad de corte a 90°': '75 x 130 mm',
-      'Peso': '14 kg'
+      'Uso': 'Carpintería y construcción',
+      'Cortes': 'Transversales y en ángulo'
     },
-    imagenUrl: 'https://picsum.photos/seed/ingletadora-skil/400/400',
-    rating: 4.6,
-    stock: 7
-  },
-  {
-    id: '13',
-    nombre: 'Medidor Láser 50m',
-    marca: 'Bosch',
-    categoria: 'Herramientas manuales',
-    precio: 115000,
-    descripcion: 'Medidor de distancia láser preciso y fácil de usar. Calcula áreas y volúmenes automáticamente. Pantalla iluminada.',
-    especificaciones: {
-      'Rango de medición': '0.15 - 50 m',
-      'Precisión': '± 1.5 mm',
-      'Tiempo de medición': '< 0.5 s',
-      'Protección': 'IP54',
-      'Alimentación': '2 pilas AAA'
-    },
-    imagenUrl: 'https://picsum.photos/seed/medidor-laser-bosch/400/400',
-    rating: 4.9,
-    stock: 20
-  },
-  {
-    id: '14',
-    nombre: 'Batería 20V 5.0Ah',
-    marca: 'DeWalt',
-    categoria: 'Accesorios',
-    precio: 135000,
-    descripcion: 'Batería de iones de litio de alta capacidad para mayor tiempo de funcionamiento. Indicador de carga LED de 3 luces.',
-    especificaciones: {
-      'Voltaje': '20V MAX',
-      'Capacidad': '5.0 Ah',
-      'Tipo de celda': 'Ion de litio',
-      'Compatibilidad': 'Toda la línea 20V MAX',
-      'Peso': '0.6 kg'
-    },
-    imagenUrl: 'https://picsum.photos/seed/bateria-dewalt/400/400',
-    rating: 4.8,
-    stock: 35
-  },
-  {
-    id: '15',
-    nombre: 'Pistola de Calor 2000W',
-    marca: 'Total',
-    categoria: 'Herramientas manuales',
-    precio: 45000,
-    descripcion: 'Pistola de calor con 2 niveles de temperatura y flujo de aire. Ideal para decapar pintura, moldear plásticos y descongelar tuberías.',
-    especificaciones: {
-      'Potencia': '2000W',
-      'Temperatura 1': '350°C',
-      'Temperatura 2': '550°C',
-      'Flujo de aire': '300 / 500 L/min',
-      'Accesorios': 'Incluye 4 boquillas'
-    },
-    imagenUrl: 'https://picsum.photos/seed/pistola-calor-total/400/400',
-    rating: 4.4,
-    stock: 28
-  },
-  {
-    id: '16',
-    nombre: 'Nivel Láser de Líneas Cruzadas',
-    marca: 'SKIL',
-    categoria: 'Herramientas manuales',
-    precio: 85000,
-    descripcion: 'Nivel láser autonivelante que proyecta líneas horizontales y verticales brillantes. Incluye trípode de aluminio.',
-    especificaciones: {
-      'Alcance': '15 m',
-      'Precisión': '± 0.5 mm/m',
-      'Rango de autonivelación': '± 4°',
-      'Diodo láser': '635 nm, < 1 mW',
-      'Clase de láser': '2'
-    },
-    imagenUrl: 'https://picsum.photos/seed/nivel-laser-skil/400/400',
+    imagenUrl: '/images/products/sierra-circular-ingleteadora-skil-3310-1800w.png',
     rating: 4.5,
-    stock: 16
+    stock: 1
   },
   {
-    id: '17',
-    nombre: 'Amoladora Angular 9" 2200W',
-    marca: 'Bosch',
-    categoria: 'Amoladoras',
-    precio: 255000,
-    descripcion: 'Amoladora angular grande para trabajos pesados de corte y desbaste. Motor Champion de alta potencia y protección contra rearranque.',
-    especificaciones: {
-      'Potencia': '2200W',
-      'Diámetro del disco': '9" (230mm)',
-      'Velocidad sin carga': '6500 RPM',
-      'Eje': 'M14',
-      'Peso': '5.2 kg'
-    },
-    imagenUrl: 'https://picsum.photos/seed/amoladora-9-bosch/400/400',
-    rating: 4.8,
-    stock: 9
-  },
-  {
-    id: '18',
-    nombre: 'Cepillo Eléctrico 82mm',
-    marca: 'DeWalt',
-    categoria: 'Herramientas manuales',
-    precio: 175000,
-    descripcion: 'Cepillo eléctrico con motor potente para cortes suaves y precisos en maderas duras. Ajuste de profundidad calibrado.',
-    especificaciones: {
-      'Potencia': '600W',
-      'Ancho de corte': '82 mm',
-      'Profundidad de corte': '0 - 1.5 mm',
-      'Velocidad sin carga': '15000 RPM',
-      'Peso': '2.8 kg'
-    },
-    imagenUrl: 'https://picsum.photos/seed/cepillo-dewalt/400/400',
-    rating: 4.7,
-    stock: 11
-  },
-  {
-    id: '19',
-    nombre: 'Disco de Corte Diamantado 4 1/2"',
-    marca: 'Total',
-    categoria: 'Accesorios',
-    precio: 12000,
-    descripcion: 'Disco diamantado segmentado para corte rápido en concreto, ladrillo y mampostería. Larga vida útil.',
-    especificaciones: {
-      'Diámetro': '4 1/2" (115mm)',
-      'Eje': '22.2 mm',
-      'Tipo': 'Segmentado',
-      'Uso': 'Corte en seco',
-      'RPM máximo': '13300 RPM'
-    },
-    imagenUrl: 'https://picsum.photos/seed/disco-diamantado-total/400/400',
-    rating: 4.6,
-    stock: 100
-  },
-  {
-    id: '20',
-    nombre: 'Sierra Sable Inalámbrica 20V',
+    id: 'sierra-circular-skil-5402-1400w',
+    nombre: 'Sierra Circular Skil 5402 1400W',
     marca: 'SKIL',
     categoria: 'Sierras',
-    precio: 160000,
-    descripcion: 'Sierra sable inalámbrica para cortes rápidos en madera, metal y plástico. Cambio de hoja sin herramientas y zapata pivotante.',
+    precio: 158000,
+    descripcion: 'La Skil 5402 de 1400W es una herramienta potente para cortes en madera y derivados, diseñada para profesionales y entusiastas.',
     especificaciones: {
-      'Voltaje': '20V MAX',
-      'Longitud de carrera': '25 mm',
-      'Velocidad sin carga': '0-3000 CPM',
-      'Capacidad en madera': '100 mm',
-      'Peso (sin batería)': '1.8 kg'
+      'Potencia': '1400W',
+      'Uso': 'Profesionales y bricolaje',
+      'Cortes': 'Madera y derivados'
     },
-    imagenUrl: 'https://picsum.photos/seed/sierra-sable-skil/400/400',
+    imagenUrl: '/images/products/sierra-circular-skil-5402-1400w.png',
     rating: 4.5,
-    stock: 13
+    stock: 5
+  },
+  {
+    id: 'taladro-atornillador-inalambrico-20v-total',
+    nombre: 'Taladro Atornillador Inalámbrico 60Nm Brushless Total TDLI206021',
+    marca: 'Total',
+    categoria: 'Taladros',
+    precio: 200000,
+    descripcion: 'El Taladro Atornillador Total 20V Brushless combina potencia y autonomía para perforar y atornillar con precisión.',
+    especificaciones: {
+      'Motor': 'Sin carbones (brushless)',
+      'Velocidades': '2 mecánicas',
+      'Torque máximo': '60Nm',
+      'Mandril': 'Metálico ajuste rápido'
+    },
+    imagenUrl: '/images/products/taladro-atornillador-inalambrico-20v-total.png',
+    rating: 4.5,
+    stock: 3
+  },
+  {
+    id: 'taladro-con-percutor-skil-6555-570w',
+    nombre: 'Taladro con Percutor Skil 6555 570W',
+    marca: 'SKIL',
+    categoria: 'Taladros',
+    precio: 63000,
+    descripcion: 'La Skil 6555 de 570W es una agujereadora percutora ligera y potente, perfecta para trabajos de bricolaje y uso profesional.',
+    especificaciones: {
+      'Potencia': '570W',
+      'Uso': 'Bricolaje y profesional',
+      'Diseño': 'Ergonómico'
+    },
+    imagenUrl: '/images/products/taladro-con-percutor-skil-6555-570w.png',
+    rating: 4.5,
+    stock: 1
+  },
+  {
+    id: 'taladro-inalambrico-20v-brushless-total',
+    nombre: 'Taladro Inalámbrico 20V Brushless 55Nm Total TDLI205581',
+    marca: 'Total',
+    categoria: 'Taladros',
+    precio: 85000,
+    descripcion: 'El Taladro Inalámbrico Total 20V es versátil, potente y liviano, ideal para tareas domésticas o profesionales.',
+    especificaciones: {
+      'Batería': '20V recargable',
+      'Motor': 'Sin carbones',
+      'Mandril': '13 mm',
+      'Luz': 'LED integrada'
+    },
+    imagenUrl: '/images/products/taladro-inalambrico-20v-brushless-total.png',
+    rating: 4.5,
+    stock: 3
+  },
+  {
+    id: 'taladro-percutor-1010w-13mm-total',
+    nombre: 'Taladro Percutor 1010W 13mm Total Industrial TG111136-4',
+    marca: 'Total',
+    categoria: 'Taladros',
+    precio: 154000,
+    descripcion: 'El Taladro Percutor Total 1010W ofrece fuerza y confiabilidad para tareas exigentes.',
+    especificaciones: {
+      'Potencia': '1010W',
+      'Velocidad': '0-3000 rpm',
+      'Mandril': '13mm metálico',
+      'Funciones': 'Percutor y reversa'
+    },
+    imagenUrl: '/images/products/taladro-percutor-1010w-13mm-total.png',
+    rating: 4.5,
+    stock: 2
+  },
+  {
+    id: 'taladro-percutor-20v-brushless-total',
+    nombre: 'Taladro Percutor 20V Brushless 66Nm Total Industrial TIDLI206681',
+    marca: 'Total',
+    categoria: 'Taladros',
+    precio: 140000,
+    descripcion: 'El Taladro Percutor 66Nm Total 20V es perfecto para trabajos intensivos que requieren fuerza y precisión.',
+    especificaciones: {
+      'Torque': '66Nm',
+      'Batería': '20V',
+      'Motor': 'Sin carbones de alto rendimiento',
+      'Mandril': 'Metálico de 13 mm'
+    },
+    imagenUrl: '/images/products/taladro-percutor-20v-brushless-total.png',
+    rating: 4.5,
+    stock: 1
+  },
+  {
+    id: 'taladro-percutor-710w-13mm-total',
+    nombre: 'Taladro Percutor 710W 13mm Total Industrial TG1071366-4',
+    marca: 'Total',
+    categoria: 'Taladros',
+    precio: 90000,
+    descripcion: 'El Taladro Percutor Total 710W es la herramienta ideal para el hogar o el taller, con potencia y precisión.',
+    especificaciones: {
+      'Potencia': '710W',
+      'Funciones': 'Percutor y reversa',
+      'Velocidad': 'Variable',
+      'Mandril': '13 mm'
+    },
+    imagenUrl: '/images/products/taladro-percutor-710w-13mm-total.png',
+    rating: 4.5,
+    stock: 2
+  },
+  {
+    id: 'taladro-percutor-bosch-gsb550-re-550w',
+    nombre: 'Taladro Percutor Bosch GSB550 RE 550W',
+    marca: 'Bosch',
+    categoria: 'Taladros',
+    precio: 99000,
+    descripcion: 'El Bosch GSB550 RE de 550W es un taladro percutor versátil y confiable, diseñado para perforaciones en hormigón, metal y madera.',
+    especificaciones: {
+      'Potencia': '550W',
+      'Función': 'Reversible',
+      'Uso': 'Hormigón, metal y madera'
+    },
+    imagenUrl: '/images/products/taladro-percutor-bosch-gsb550-re-550w.png',
+    rating: 4.5,
+    stock: 1
+  },
+  {
+    id: 'taladro-percutor-inalambrico-20v-total',
+    nombre: 'Taladro Percutor Inalámbrico 55Nm Brushless Total TIDLI205581',
+    marca: 'Total',
+    categoria: 'Taladros',
+    precio: 115000,
+    descripcion: 'El Taladro Percutor Total 20V combina fuerza y precisión para perforar en mampostería, madera o metal.',
+    especificaciones: {
+      'Motor': 'Brushless de 55 Nm',
+      'Funciones': 'Percutor y taladro',
+      'Velocidades': 'Variables y reversa',
+      'Batería': 'Compatible con 20V Total'
+    },
+    imagenUrl: '/images/products/taladro-percutor-inalambrico-20v-total.png',
+    rating: 4.5,
+    stock: 1
+  },
+  {
+    id: 'ventilador-portatil-20v-total',
+    nombre: 'Ventilador Portátil 20V Total – Potente y Silencioso TFALI2007',
+    marca: 'Total',
+    categoria: 'Accesorios',
+    precio: 94999,
+    descripcion: 'El Total Ventilador 20V te brinda aire fresco en cualquier ambiente. Su formato portátil lo hace perfecto para obras o talleres.',
+    especificaciones: {
+      'Batería': '20V',
+      'Diseño': 'Compacto y silencioso',
+      'Ajuste': 'Inclinación y flujo de aire'
+    },
+    imagenUrl: '/images/products/ventilador-portatil-20v-total.png',
+    rating: 4.5,
+    stock: 1
   }
 ];

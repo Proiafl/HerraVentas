@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { Heart, ShieldCheck, Trophy, Truck } from 'lucide-react';
+import { Heart, ShieldCheck } from 'lucide-react';
 import { productos } from '../data/productos';
 import { useStore } from '../store/useStore';
 import clsx from 'clsx';
@@ -85,9 +85,6 @@ export default function Producto() {
               <div className="text-4xl font-light text-gray-900 mb-1">
                 $ {product.precio.toLocaleString('es-AR')}
               </div>
-              <div className="text-sm text-gray-900">
-                en <span className="text-green-600 font-medium">6 cuotas sin interés</span> de $ {(product.precio / 6).toLocaleString('es-AR')}
-              </div>
             </div>
 
             <div className="mb-6">
@@ -111,16 +108,6 @@ export default function Producto() {
           {/* Right: Buy Box */}
           <div className="md:col-span-3">
             <div className="border border-gray-200 rounded-lg p-6 flex flex-col gap-4">
-              <div className="text-green-600 font-semibold flex items-center gap-2">
-                <Truck size={20} /> Llega gratis mañana
-              </div>
-              <div className="text-sm text-gray-500">
-                Comprando dentro de las próximas 2 hs
-              </div>
-              
-              <div className="text-gray-900 font-medium mt-2">
-                Vendido por <span className="text-[#1E5FA6]">Herraventas Oficial</span>
-              </div>
 
               <div className="mt-4">
                 <div className="font-semibold text-gray-900 mb-2">Stock disponible</div>
@@ -158,10 +145,6 @@ export default function Producto() {
                 <div className="flex items-start gap-2">
                   <ShieldCheck size={16} className="text-gray-400 flex-shrink-0 mt-0.5" />
                   <p><span className="text-[#1E5FA6]">Compra Protegida</span>, recibí el producto que esperabas o te devolvemos tu dinero.</p>
-                </div>
-                <div className="flex items-start gap-2">
-                  <Trophy size={16} className="text-gray-400 flex-shrink-0 mt-0.5" />
-                  <p><span className="text-[#1E5FA6]">Mercado Puntos</span>. Sumás puntos con cada compra.</p>
                 </div>
               </div>
             </div>
