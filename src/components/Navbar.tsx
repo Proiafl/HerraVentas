@@ -20,7 +20,7 @@ export default function Navbar() {
   };
 
   return (
-    <header className="bg-white text-gray-800 sticky top-0 z-50 shadow-sm border-b border-gray-100">
+    <header className="bg-white text-gray-800 sticky top-0 z-50 shadow-sm border-b border-gray-100" role="banner">
       {/* Main Header */}
       <div className="container mx-auto px-4 py-3 flex items-center justify-between gap-4 md:gap-8">
         {/* Logo */}
@@ -107,7 +107,7 @@ export default function Navbar() {
             <MapPin size={16} />
             <span>Enviar a Capital Federal</span>
           </div>
-          <nav className="flex items-center gap-5 text-gray-100 font-medium">
+          <nav className="flex items-center gap-5 text-gray-100 font-medium" aria-label="Categorías de productos">
             <Link to="/catalogo" className="hover:text-white">Categorías</Link>
             <Link to="/catalogo" className="hover:text-white">Ofertas</Link>
             <Link to="/catalogo" className="hover:text-white">Historial</Link>

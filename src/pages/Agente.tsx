@@ -4,6 +4,7 @@ import { Send, Wrench, User, Sparkles } from 'lucide-react';
 import { FUNCTIONS_URL } from '../supabase';
 import ProductCard from '../components/ProductCard';
 import { Product } from '../types';
+import { usePageSEO } from '../hooks/usePageSEO';
 
 interface Message {
   id: string;
@@ -23,6 +24,12 @@ export default function Agente() {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  usePageSEO({
+    title: 'Agente IA de Herramientas | ¿Qué herramienta comprar? | HerraVentas',
+    description: 'Nuestro Agente IA experto en herramientas te ayuda a elegir la herramienta ideal para tu proyecto. Describí lo que necesitás y obtenet recomendaciones personalizadas.',
+    canonical: '/agente',
+  });
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });

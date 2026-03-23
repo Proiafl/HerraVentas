@@ -15,9 +15,14 @@ export default function Footer() {
                 referrerPolicy="no-referrer"
               />
             </Link>
-            <p className="text-gray-600 max-w-sm mb-6">
-              Compartimos tu pasión. Especialistas en herramientas de hogar y trabajo con la mejor variedad y calidad para cada proyecto.
+            <p className="text-gray-600 max-w-sm mb-4">
+              Compartimos tu pasión. Especialistas en herramientas eléctricas y manuales de hogar y trabajo con la mejor variedad y calidad para cada proyecto.
             </p>
+            <address className="not-italic text-sm text-gray-500 mb-6 space-y-1">
+              <span className="block">Av. Corrientes 1234, CABA, Argentina</span>
+              <a href="tel:+541112345678" className="block hover:text-[#1B2A4A] transition-colors">+54 11 1234-5678</a>
+              <a href="mailto:contacto@herraventas.com.ar" className="block hover:text-[#1B2A4A] transition-colors">contacto@herraventas.com.ar</a>
+            </address>
             <div className="flex gap-4">
               <a href="#" className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition-colors text-gray-600">
                 <Instagram size={20} />

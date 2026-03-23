@@ -2,10 +2,42 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, Phone, Mail, Send, MessageCircle } from 'lucide-react';
 import clsx from 'clsx';
+import { usePageSEO } from '../hooks/usePageSEO';
 
 export default function Contacto() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+
+  usePageSEO({
+    title: 'Contacto | HerraVentas — Herramientas Online Argentina',
+    description: 'Contactá a HerraVentas para consultas, pedidos y asistencia. Estamos en CABA, Argentina. Tel: +54 11 1234-5678. Respondemos a la brevedad.',
+    canonical: '/contacto',
+    schema: {
+      '@context': 'https://schema.org',
+      '@type': 'LocalBusiness',
+      '@id': 'https://www.herraventas.com.ar/#localbusiness',
+      name: 'HerraVentas',
+      description: 'Especialistas en herramientas eléctricas y manuales en Argentina',
+      url: 'https://www.herraventas.com.ar',
+      telephone: '+54-11-1234-5678',
+      email: 'contacto@herraventas.com.ar',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'Av. Corrientes 1234',
+        addressLocality: 'Ciudad Autónoma de Buenos Aires',
+        addressRegion: 'Buenos Aires',
+        postalCode: 'C1043',
+        addressCountry: 'AR',
+      },
+      openingHoursSpecification: {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+        opens: '09:00',
+        closes: '18:00',
+      },
+      priceRange: '$$',
+    },
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

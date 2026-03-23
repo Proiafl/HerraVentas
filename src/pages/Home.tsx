@@ -3,23 +3,80 @@ import { Link } from 'react-router-dom';
 import { CreditCard, Truck, ShieldCheck, Sparkles } from 'lucide-react';
 import ProductCard from '../components/ProductCard';
 import { productos } from '../data/productos';
+import { usePageSEO } from '../hooks/usePageSEO';
+
+const homeSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': 'https://www.herraventas.com.ar/#organization',
+      name: 'HerraVentas',
+      url: 'https://www.herraventas.com.ar',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://www.herraventas.com.ar/logo-herraventas.png',
+      },
+      contactPoint: {
+        '@type': 'ContactPoint',
+        telephone: '+54-11-1234-5678',
+        contactType: 'customer service',
+        areaServed: 'AR',
+        availableLanguage: 'Spanish',
+      },
+      sameAs: [
+        'https://www.instagram.com/herraventas',
+        'https://www.facebook.com/herraventas',
+      ],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': 'https://www.herraventas.com.ar/#website',
+      url: 'https://www.herraventas.com.ar',
+      name: 'HerraVentas',
+      description: 'Herramientas eléctricas y manuales online en Argentina',
+      publisher: { '@id': 'https://www.herraventas.com.ar/#organization' },
+      potentialAction: {
+        '@type': 'SearchAction',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: 'https://www.herraventas.com.ar/catalogo?q={search_term_string}',
+        },
+        'query-input': 'required name=search_term_string',
+      },
+    },
+    {
+      '@type': 'ItemList',
+      name: 'Ofertas de la semana en herramientas',
+      itemListElement: productos.slice(0, 5).map((p, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        url: `https://www.herraventas.com.ar/producto/${p.id}`,
+        name: p.nombre,
+      })),
+    },
+  ],
+};
 
 const banners = [
   { 
     id: 1, 
     image: '/banner-1.png',
+    alt: 'Herramientas eléctricas en oferta - Taladros, amoladoras y sierras - HerraVentas',
     title: '',
     subtitle: ''
   },
   { 
     id: 2, 
     image: '/banner-2.png',
+    alt: 'Envíos a todo el país - Comprar herramientas online Argentina - HerraVentas',
     title: '',
     subtitle: ''
   },
   { 
     id: 3, 
     image: '/banner-3.jpg',
+    alt: 'Herramientas Bosch, DeWalt, Total y SKIL - Los mejores precios - HerraVentas',
     title: '',
     subtitle: ''
   },
@@ -27,6 +84,13 @@ const banners = [
 
 export default function Home() {
   const [currentBanner, setCurrentBanner] = useState(0);
+
+  usePageSEO({
+    title: 'HerraVentas | Herramientas Eléctricas y Manuales Online Argentina',
+    description: 'Comprá herramientas eléctricas y manuales al mejor precio en Argentina. Taladros, amoladoras, sierras, lijadoras y más. Envíos a todo el país. Bosch, DeWalt, Total, SKIL.',
+    canonical: '/',
+    schema: homeSchema,
+  });
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -49,9 +113,13 @@ export default function Home() {
           >
             <img
               src={banner.image}
-              alt={banner.title}
+              alt={banner.alt}
+              width={1440}
+              height={450}
               className="w-full h-full object-cover"
               referrerPolicy="no-referrer"
+              loading={index === 0 ? 'eager' : 'lazy'}
+              fetchPriority={index === 0 ? 'high' : 'low'}
             />
             {(banner.title || banner.subtitle) && (
               <div className="absolute inset-0 flex items-center justify-center md:justify-start md:pl-24">
@@ -90,6 +158,9 @@ export default function Home() {
       </section>
 
       <div className="container mx-auto px-4 -mt-12 relative z-10">
+        {/* H1 visually hidden para SEO */}
+        <h1 className="sr-only">HerraVentas — Herramientas Eléctricas y Manuales Online en Argentina. Comprar taladros, amoladoras, sierras y más con envío a todo el país.</h1>
+
         {/* Benefits Strip */}
         <div className="bg-white rounded-md shadow-sm p-4 md:p-6 flex flex-col md:flex-row items-center justify-between gap-4 mb-8">
           <div className="flex items-center gap-4 flex-1">
@@ -145,7 +216,7 @@ export default function Home() {
         {/* Ofertas */}
         <div className="mb-8">
           <div className="flex items-end gap-4 mb-4">
-            <h2 className="text-2xl font-normal text-gray-600">Ofertas de la semana</h2>
+            <h2 className="text-2xl font-normal text-gray-600">Ofertas de la semana en herramientas</h2>
             <Link to="/catalogo" className="text-sm text-[#1E5FA6] hover:text-[#1B2A4A] font-medium mb-1">Ver todas</Link>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">

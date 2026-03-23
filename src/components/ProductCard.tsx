@@ -15,9 +15,12 @@ export default function ProductCard({ product }: { product: Product; key?: React
         <Link to={`/producto/${product.id}`} className="block w-full h-full">
           <img
             src={product.imagenUrl}
-            alt={product.nombre}
+            alt={`${product.nombre} - ${product.marca} | HerraVentas`}
+            width={300}
+            height={300}
             className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
             referrerPolicy="no-referrer"
+            loading="lazy"
           />
         </Link>
         <button

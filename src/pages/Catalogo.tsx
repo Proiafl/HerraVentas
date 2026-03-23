@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { Filter, X } from 'lucide-react';
 import ProductCard from '../components/ProductCard';
 import { productos } from '../data/productos';
+import { usePageSEO } from '../hooks/usePageSEO';
 
 export default function Catalogo() {
   const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
@@ -51,6 +52,26 @@ export default function Catalogo() {
 
     return result;
   }, [selectedBrands, selectedCategories, sortBy]);
+
+  const catalogSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://www.herraventas.com.ar/' },
+      { '@type': 'ListItem', position: 2, name: 'Herramientas', item: 'https://www.herraventas.com.ar/catalogo' },
+    ],
+  };
+
+  usePageSEO({
+    title: selectedCategories.length === 1
+      ? `${selectedCategories[0]} en Argentina | Comprar Online | HerraVentas`
+      : 'Catálogo de Herramientas Eléctricas y Manuales | HerraVentas',
+    description: selectedCategories.length === 1
+      ? `Comprá ${selectedCategories[0]} al mejor precio en Argentina. ${selectedBrands.length ? selectedBrands.join(', ') + '.' : 'Bosch, DeWalt, Total, SKIL.'} Envíos a todo el país.`
+      : 'Explorá nuestro catálogo completo de herramientas eléctricas y manuales. Taladros, amoladoras, sierras, lijadoras y más. Envíos a todo Argentina.',
+    canonical: '/catalogo',
+    schema: catalogSchema,
+  });
 
   const SidebarContent = () => (
     <div className="space-y-6">
@@ -120,7 +141,7 @@ export default function Catalogo() {
 
       <div className="flex flex-col md:flex-row gap-8">
         {/* Desktop Sidebar */}
-        <aside className="hidden md:block w-56 flex-shrink-0">
+        <aside className="hidden md:block w-56 flex-shrink-0" aria-label="Filtros de productos">
           <SidebarContent />
         </aside>
 

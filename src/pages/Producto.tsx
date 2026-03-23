@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Heart, ShieldCheck } from 'lucide-react';
 import { productos } from '../data/productos';
 import { useStore } from '../store/useStore';
+import { usePageSEO } from '../hooks/usePageSEO';
 import clsx from 'clsx';
 
 export default function Producto() {
@@ -13,6 +14,67 @@ export default function Producto() {
 
   const product = productos.find((p) => p.id === id);
   const isWishlisted = product ? wishlist.some((item) => item.id === product.id) : false;
+
+  const productSchema = product ? {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Product',
+        name: product.nombre,
+        image: `https://www.herraventas.com.ar${product.imagenUrl}`,
+        description: product.descripcion,
+        brand: {
+          '@type': 'Brand',
+          name: product.marca,
+        },
+        offers: {
+          '@type': 'Offer',
+          url: `https://www.herraventas.com.ar/producto/${product.id}`,
+          priceCurrency: 'ARS',
+          price: product.precio,
+          availability: product.stock > 0
+            ? 'https://schema.org/InStock'
+            : 'https://schema.org/OutOfStock',
+          seller: {
+            '@type': 'Organization',
+            name: 'HerraVentas',
+          },
+        },
+        aggregateRating: {
+          '@type': 'AggregateRating',
+          ratingValue: product.rating,
+          bestRating: '5',
+          worstRating: '1',
+          ratingCount: '42',
+        },
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://www.herraventas.com.ar/' },
+          { '@type': 'ListItem', position: 2, name: 'Herramientas', item: 'https://www.herraventas.com.ar/catalogo' },
+          { '@type': 'ListItem', position: 3, name: product.categoria, item: `https://www.herraventas.com.ar/catalogo?categoria=${encodeURIComponent(product.categoria)}` },
+          { '@type': 'ListItem', position: 4, name: product.nombre, item: `https://www.herraventas.com.ar/producto/${product.id}` },
+        ],
+      },
+    ],
+  } : undefined;
+
+  usePageSEO(
+    product
+      ? {
+          title: `${product.nombre} | ${product.marca} | HerraVentas`,
+          description: `${product.descripcion} Comprar ${product.nombre} al mejor precio en Argentina. Envíos a todo el país.`,
+          canonical: `/producto/${product.id}`,
+          ogType: 'product',
+          schema: productSchema,
+        }
+      : {
+          title: 'Producto no encontrado | HerraVentas',
+          description: 'El producto que buscas no existe. Explore nuestro catálogo de herramientas.',
+          noIndex: true,
+        }
+  );
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -53,9 +115,12 @@ export default function Producto() {
             <div className="relative w-full aspect-square mb-4 p-4 border border-gray-100 rounded-md flex items-center justify-center">
               <img
                 src={product.imagenUrl}
-                alt={product.nombre}
+                alt={`${product.nombre} - ${product.marca} - ${product.categoria} | HerraVentas`}
+                width={400}
+                height={400}
                 className="max-w-full max-h-full object-contain"
                 referrerPolicy="no-referrer"
+                loading="eager"
               />
               <button
                 onClick={() => toggleWishlist(product)}
