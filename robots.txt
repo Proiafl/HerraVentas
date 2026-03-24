@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+Allow: /catalogo
+Allow: /producto/
+Allow: /contacto
+Allow: /agente
+
+Disallow: /carrito
+Disallow: /checkout
+Disallow: /login
+Disallow: /registro
+Disallow: /perfil
+
+# Dominio canónico: herraventas.com.ar
+# herraventas.com hace 301 redirect a herraventas.com.ar
+Sitemap: https://www.herraventas.com.ar/sitemap.xml
