@@ -102,7 +102,7 @@ export default function Home() {
   return (
     <div className="pb-16">
       {/* Hero Carousel */}
-      <section className="relative w-full h-[300px] md:h-[450px] bg-[#1B2A4A] overflow-hidden group">
+      <section className="relative w-full h-[400px] md:h-[560px] bg-[#1B2A4A] overflow-hidden group">
         {/* Imágenes del carrusel absolutas dentro del contenedor */}
         {banners.map((banner, index) => (
           <div
@@ -115,12 +115,13 @@ export default function Home() {
               src={banner.image}
               alt={banner.alt}
               width={1440}
-              height={450}
+              height={560}
               className="w-full h-full object-cover"
               referrerPolicy="no-referrer"
               loading={index === 0 ? 'eager' : 'lazy'}
               fetchPriority={index === 0 ? 'high' : 'low'}
             />
+            {/* Texto y subtítulo */}
             {(banner.title || banner.subtitle) && (
               <div className="absolute inset-0 flex items-center justify-center md:justify-start md:pl-24">
                 <div className="text-center md:text-left px-4 max-w-2xl">
@@ -141,10 +142,10 @@ export default function Home() {
         ))}
 
         {/* Gradient fade inferior */}
-        <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-[#ebebeb] to-transparent pointer-events-none z-10" />
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#ebebeb]/50 to-transparent pointer-events-none z-10" />
 
         {/* Indicadores */}
-        <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-3 z-20">
+        <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-3 z-20">
           {banners.map((_, idx) => (
             <button
               key={idx}
@@ -152,12 +153,13 @@ export default function Home() {
               className={`h-3 rounded-full transition-all duration-300 ${
                 idx === currentBanner ? 'bg-[#4A9FD4] w-8' : 'bg-white/50 hover:bg-white/80 w-3'
               }`}
+              aria-label={`Ir al banner ${idx + 1}`}
             />
           ))}
         </div>
       </section>
 
-      <div className="container mx-auto px-4 -mt-12 relative z-10">
+      <div className="container mx-auto px-4 mt-8 relative z-10">
         {/* H1 visually hidden para SEO */}
         <h1 className="sr-only">HerraVentas — Herramientas Eléctricas y Manuales Online en Argentina. Comprar taladros, amoladoras, sierras y más con envío a todo el país.</h1>
 

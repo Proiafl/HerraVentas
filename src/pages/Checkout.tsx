@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle, CreditCard, Wallet, Building2, ArrowLeft } from 'lucide-react';
 import { useStore } from '../store/useStore';
@@ -9,10 +9,25 @@ import clsx from 'clsx';
 export default function Checkout() {
   const { cart, clearCart, user } = useStore();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const statusParam = searchParams.get('status');
+  
   const [step, setStep] = useState(1);
   const [paymentMethod, setPaymentMethod] = useState('tarjeta');
   const [isProcessing, setIsProcessing] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(statusParam === 'success');
+
+  useEffect(() => {
+    if (statusParam === 'success') {
+      clearCart();
+    } else if (statusParam === 'error') {
+      alert('Hubo un error al procesar tu pago en Mercado Pago. Por favor, intentá nuevamente.');
+      navigate('/checkout', { replace: true });
+    } else if (statusParam === 'pending') {
+      alert('Tu pago está pendiente de aprobación. Te avisaremos cuando se confirme.');
+      navigate('/checkout', { replace: true });
+    }
+  }, [statusParam, clearCart, navigate]);
 
   const subtotal = cart.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
   const envio = subtotal > 0 ? 5000 : 0;
@@ -60,9 +75,16 @@ export default function Checkout() {
         }),
       });
 
+      const responseData = await res.json();
+
       if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.error ?? 'Error al procesar el pedido');
+        throw new Error(responseData.error ?? 'Error al procesar el pedido');
+      }
+
+      if (paymentMethod === 'mercadopago' && responseData.init_point) {
+        clearCart();
+        window.location.href = responseData.init_point;
+        return;
       }
 
       setIsSuccess(true);

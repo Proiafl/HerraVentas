@@ -193,7 +193,10 @@ export default function Producto() {
 
               <div className="flex flex-col gap-2 mt-4">
                 <button
-                  onClick={() => navigate('/checkout')}
+                  onClick={() => {
+                    addToCart(product, cantidad);
+                    navigate('/checkout');
+                  }}
                   className="w-full bg-[#1E5FA6] text-white font-semibold py-3 rounded-md hover:bg-[#15467A] transition-colors"
                 >
                   Comprar ahora
